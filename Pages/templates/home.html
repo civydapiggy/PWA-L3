@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>All Blog Posts</h1>
+
+{% for post in all_posts_list %}
+  <div>
+    <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
+    <p><em>by {{ post.author }}</em></p>
+    <p>{{ post.body|truncatewords:20 }}</p>
+  </div>
+{% empty %}
+  <p>No posts yet.</p>
+{% endfor %}
+
+<a href="{% url 'post_new' %}">+ New Post</a>
+{% endblock %}

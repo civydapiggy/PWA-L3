@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load cart_tag %}
+
+{% block content %}
+<div class="container my-4">
+  <h2 class="text-center text-success">Order Complete!</h2>
+
+  <p>Thank you, {{ user.username }}, for your order.</p>
+
+  <ul class="list-group mt-3">
+    <li class="list-group-item"><strong>Order Date:</strong> {{ order.orderdate|date:"M d, Y, h:i A" }}</li>
+    <li class="list-group-item"><strong>Shipping Date:</strong> {{ order.shippingdate|date:"M d, Y" }}</li>
+    <li class="list-group-item"><strong>Address:</strong> {{ order.address }}, {{ order.city }}, {{ order.province }}, {{ order.postalcode }}</li>
+  </ul>
+
+  <h4 class="mt-4">Items Ordered</h4>
+  <table class="table table-bordered mt-2">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Item</th>
+        <th class="text-end">Quantity</th>
+        <th class="text-end">Price</th>
+        <th class="text-end">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in order.items.all %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ item.item.name }}</td>
+          <td class="text-end">{{ item.quantity }}</td>
+          <td class="text-end">${{ item.price }}</td>
+          <td class="text-end">${{ item.quantity|multiply:item.price }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

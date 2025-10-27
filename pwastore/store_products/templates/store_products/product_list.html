@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container my-4">
+    <h1 class="text-center mb-4">Our Products</h1>
+    <div class="row">
+        {% if all_products_list %}
+            {% for product in all_products_list %}
+                <div class="col-md-4 col-sm-12 col-lg-3 mb-4">
+                    <div class="card h-100">
+                        {% if product.mainimage %}
+                            <img src="{{ product.mainimage.url }}" class="card-img-top" alt="{{ product.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ product.name }}</h5>
+                            <p class="card-text text-center">{{ product.preview_text }}</p>
+                            <p class="text-center text-success h5">${{ product.price }}</p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="{% url 'store_products:product-detail' product.pk %}" class="btn btn-primary mb-2">View Details</a>
+                            {% if product.slug %}
+                                <a href="{% url 'cart:add-to-cart' product.slug %}" class="btn btn-success">Add to Cart</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center">No products available.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
