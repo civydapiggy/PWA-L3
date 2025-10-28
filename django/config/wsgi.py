@@ -1,16 +1,13 @@
 """
-WSGI config for config project.
+WSGI config for the django tree.
 
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
+This exposes the WSGI callable as a module-level variable named ``application``.
 """
 
 import os
-
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+# IMPORTANT: use the real settings module under pwastore/config/
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pwastore.config.settings")
 
 application = get_wsgi_application()
