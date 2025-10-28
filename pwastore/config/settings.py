@@ -25,11 +25,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # local apps (add more if present)
-     "pwastore.store_products.apps.StoreProductsConfig",
-    "pwastore.cart.apps.CartConfig",
-    "pwastore.accounts.apps.AccountsConfig",
-    "pwastore.orders.apps.OrdersConfig",
+    # Local apps — unprefixed to match import paths like store_products.models.*
+    "store_products.apps.StoreProductsConfig",
+    "cart.apps.CartConfig",
+    "accounts.apps.AccountsConfig",
+    "orders.apps.OrdersConfig",
 ]
 
 # -------------------- Middleware --------------------
@@ -89,9 +89,7 @@ USE_TZ = True
 
 # -------------------- Static files --------------------
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"  # <-- required for collectstatic on Render
-
-# Use Whitenoise’s hashed storage for production
+STATIC_ROOT = BASE_DIR / "staticfiles"  # required for collectstatic on Render
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # -------------------- Defaults --------------------
