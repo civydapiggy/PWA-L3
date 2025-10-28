@@ -26,10 +26,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     # local apps (add more if present)
-    "store_products",
-    "cart",
-    "accounts",
-    "orders.apps.OrdersConfig",
+     "pwastore.store_products.apps.StoreProductsConfig",
+    "pwastore.cart.apps.CartConfig",
+    "pwastore.accounts.apps.AccountsConfig",
+    "pwastore.orders.apps.OrdersConfig",
 ]
 
 # -------------------- Middleware --------------------
