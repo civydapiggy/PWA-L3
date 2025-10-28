@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 class OrdersConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "pwastore.orders"
+    name = "orders"  # unprefixed to match orders.models.*
