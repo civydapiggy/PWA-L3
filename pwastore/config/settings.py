@@ -25,8 +25,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # Local apps — unprefixed to match import paths like store_products.models.*
-    "store_products.apps.StoreProductsConfig",
+    "store_products.apps.StoreProductsConfig",  # <-- unprefixed
     "cart.apps.CartConfig",
     "accounts.apps.AccountsConfig",
     "orders.apps.OrdersConfig",
