@@ -6,7 +6,7 @@ import sys
 def main():
     """Run administrative tasks."""
     # Use the config inside pwastore
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pwastore.config.settings")
 
     # ---- EMERGENCY PATCH: force add 'orders' to INSTALLED_APPS ----
     try:
