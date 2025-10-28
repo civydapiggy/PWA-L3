@@ -5,31 +5,9 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    # Use the config inside pwastore
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pwastore.config.settings")
-
-
-    # ---- EMERGENCY PATCH: force add 'orders' to INSTALLED_APPS ----
-    try:
-        import importlib
-        settings_mod = importlib.import_module('config.settings')  # C:\PWA-L3\pwastore\config\settings.py
-        apps = list(getattr(settings_mod, 'INSTALLED_APPS', []))
-        if 'orders.apps.OrdersConfig' not in apps and 'orders' not in apps:
-            apps.append('orders.apps.OrdersConfig')
-            settings_mod.INSTALLED_APPS = apps  # mutate before Django loads settings
-    except Exception as e:
-        print(">>> WARNING: couldn't patch INSTALLED_APPS:", e)
-    # ----------------------------------------------------------------
-
-    try:
-        from django.core.management import execute_from_command_line
-    except ImportError as exc:
-        raise ImportError(
-            "Couldn't import Django. Are you sure it's installed and "
-            "available on your PYTHONPATH environment variable? Did you "
-            "forget to activate a virtual environment?"
-        ) from exc
+    from django.core.management import execute_from_command_line
     execute_from_command_line(sys.argv)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
