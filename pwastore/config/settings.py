@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "store_products",
     "cart",
     "accounts",
+    "orders.apps.OrdersConfig",
 ]
 
 # -------------------- Middleware --------------------
