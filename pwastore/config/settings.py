@@ -14,7 +14,7 @@ SECRET_KEY = os.environ.get(
     "django-insecure-ky5^p#@c7fy)@105%+&5%+gv2m@(!jy+8r!&(1f6g9!l+8*om+"
 )
 DEBUG = os.environ.get("DEBUG", "True") == "True"
-ALLOWED_HOSTS = ["*"]  # tighten in production
+ALLOWED_HOSTS = ["*"]  # tighten in production (e.g. ['your-app.onrender.com'])
 
 # -------------------- Apps --------------------
 INSTALLED_APPS = [
@@ -25,7 +25,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    "store_products.apps.StoreProductsConfig",  # <-- unprefixed
+    # Local apps (unprefixed to match your templates/models)
+    "store_products.apps.StoreProductsConfig",
     "cart.apps.CartConfig",
     "accounts.apps.AccountsConfig",
     "orders.apps.OrdersConfig",
@@ -87,9 +88,17 @@ USE_I18N = True
 USE_TZ = True
 
 # -------------------- Static files --------------------
+# App/third-party static collected to STATIC_ROOT on Render
 STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"  # required for collectstatic on Render
+STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# Your project-level static (where you put product images under static/products/)
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# -------------------- Media (optional; safe to keep) --------------------
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # -------------------- Defaults --------------------
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
