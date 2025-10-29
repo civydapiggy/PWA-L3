@@ -1,30 +1,45 @@
 """
-URL configuration for config project.
+URL configuration for pwastore.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+Routes:
+- ''          -> store_products.urls  (homepage)
+- 'cart/'     -> cart.urls
+- 'accounts/' -> accounts.urls + Django auth URLs
+- 'admin/'    -> Django admin
+
+Also serves user-uploaded media from /media/ for this demo.
 """
 
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.views.static import serve
 
 urlpatterns = [
-    path('', include('store_products.urls', namespace='store_products')),  # homepage
-    path('admin/', admin.site.urls),
-    path('cart/', include('cart.urls')),
-    path('accounts/', include('accounts.urls')),  # ✅ add this
-    path('accounts/', include('django.contrib.auth.urls')),  # login/logout/password
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # Homepage / product catalog
+    path(
+        "",
+        include(("store_products.urls", "store_products"), namespace="store_products"),
+    ),
+
+    # Cart
+    path("cart/", include(("cart.urls", "cart"), namespace="cart")),
+
+    # Accounts (your app) + built-in auth (login/logout/password)
+    path("accounts/", include(("accounts.urls", "accounts"), namespace="accounts")),
+    path("accounts/", include("django.contrib.auth.urls")),
+
+    # Admin
+    path("admin/", admin.site.urls),
+]
+
+# --- Media files (uploaded images) ---
+# DEBUG: use Django helper
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Non-DEBUG (Render demo): serve from disk via Django
+else:
+    urlpatterns += [
+        re_path(r"^media/(?P<path>.*)$", serve, {"document_root": settings.MEDIA_ROOT}),
+    ]

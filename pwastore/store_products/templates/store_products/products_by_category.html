@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="container">
@@ -8,24 +9,24 @@
     {% if all_products_list %}
       {% for product in all_products_list %}
         <div class="col-md-4 col-sm-12 col-lg-3 m-1">
-          <div class="card" style="width:100%;">
+          <div class="card h-100">
             {% if product.mainimage %}
-              <img src="{{ product.mainimage.url }}" class="card-img-top" alt="{{ product.name }}">
+              <img src="{% static 'products/' %}{{ product.mainimage }}" class="card-img-top" alt="{{ product.name }}">
+            {% else %}
+              <img src="{% static 'products/placeholder.png' %}" class="card-img-top" alt="No image available">
             {% endif %}
+
             <div class="card-body text-center">
               <h6 class="card-title">{{ product.name }}</h6>
               <p class="card-text mb-1"><strong>${{ product.price }}</strong></p>
-              {# If you really want a teaser line here, use preview_text (short) #}
+              {# Optional: show a short preview #}
               {# <p class="card-text text-muted">{{ product.preview_text }}</p> #}
             </div>
+
             <div class="card-footer text-center">
-              <a href="{% url 'store_products:product-detail' product.pk %}" class="btn btn-primary">
-                View Details
-              </a>
+              <a href="{% url 'store_products:product-detail' product.pk %}" class="btn btn-primary mb-1">View Details</a>
               {% if product.slug %}
-                <a href="{% url 'store_products:add-to-cart' product.slug %}" class="btn btn-success">
-                  Add to Cart
-                </a>
+                <a href="{% url 'store_products:add-to-cart' product.slug %}" class="btn btn-success">Add to Cart</a>
               {% endif %}
             </div>
           </div>

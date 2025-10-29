@@ -1,19 +1,35 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
 <div class="container my-4">
-    <h1 class="mb-3">{{ product.name }}</h1>
+    <h1 class="mb-3 text-center">{{ product.name }}</h1>
 
+    {# ✅ Show product image from static/products/ instead of media #}
     {% if product.mainimage %}
-        <img src="{{ product.mainimage.url }}" alt="{{ product.name }}" class="img-fluid mb-3" style="max-width: 500px;">
+        <img src="{% static 'products/' %}{{ product.mainimage }}" 
+             alt="{{ product.name }}" 
+             class="img-fluid d-block mx-auto mb-3"
+             style="max-width: 500px;">
+    {% else %}
+        {# Optional placeholder if missing image #}
+        <img src="{% static 'products/placeholder.png' %}" 
+             alt="No image available" 
+             class="img-fluid d-block mx-auto mb-3"
+             style="max-width: 500px;">
     {% endif %}
 
-    <p>{{ product.preview_text }}</p>
-    <p class="h4 text-success">Price: ${{ product.price }}</p>
+    <p class="text-center my-3">{{ product.preview_text }}</p>
+    <p class="h4 text-success text-center mb-4">Price: ${{ product.price }}</p>
 
-    {% if product.slug %}
-        <a href="{% url 'cart:add-to-cart' product.slug %}" class="btn btn-success mb-2">Add to Cart</a>
-    {% endif %}
-    <br>
-    <a href="{% url 'store_products:home' %}" class="btn btn-secondary">Back to Products</a>
+    <div class="text-center">
+        {% if product.slug %}
+            <a href="{% url 'cart:add-to-cart' product.slug %}" 
+               class="btn btn-success mb-2">Add to Cart</a>
+        {% endif %}
+        <br>
+        <a href="{% url 'store_products:home' %}" 
+           class="btn btn-secondary">Back to Products</a>
+    </div>
 </div>
 {% endblock %}

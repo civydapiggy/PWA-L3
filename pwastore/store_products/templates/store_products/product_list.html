@@ -8,18 +8,30 @@
             {% for product in all_products_list %}
                 <div class="col-md-4 col-sm-12 col-lg-3 mb-4">
                     <div class="card h-100">
+
+                        {# ✅ Display product image from /static/products/ #}
                         {% if product.mainimage %}
-                            <img src="{{ product.mainimage.url }}" class="card-img-top" alt="{{ product.name }}">
+                            {# If your product.mainimage stores filename like "duck_hoodie.webp" #}
+                            <img src="{% static 'products/' %}{{ product.mainimage }}" 
+                                 class="card-img-top" alt="{{ product.name }}">
+                        {% else %}
+                            {# Optional placeholder if no image is defined #}
+                            <img src="{% static 'products/placeholder.png' %}" 
+                                 class="card-img-top" alt="No image">
                         {% endif %}
+
                         <div class="card-body">
                             <h5 class="card-title text-center">{{ product.name }}</h5>
                             <p class="card-text text-center">{{ product.preview_text }}</p>
                             <p class="text-center text-success h5">${{ product.price }}</p>
                         </div>
+
                         <div class="card-footer text-center">
-                            <a href="{% url 'store_products:product-detail' product.pk %}" class="btn btn-primary mb-2">View Details</a>
+                            <a href="{% url 'store_products:product-detail' product.pk %}" 
+                               class="btn btn-primary mb-2">View Details</a>
                             {% if product.slug %}
-                                <a href="{% url 'cart:add-to-cart' product.slug %}" class="btn btn-success">Add to Cart</a>
+                                <a href="{% url 'cart:add-to-cart' product.slug %}" 
+                                   class="btn btn-success">Add to Cart</a>
                             {% endif %}
                         </div>
                     </div>
