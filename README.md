@@ -39,3 +39,12 @@ _(Hosted on Render)_
 ## 📦 Run locally
 ```bash
 python manage.py runserver
+
+(You can use another name — just update the Markdown link.)
+
+2. Commit and push both the README and screenshot:
+```bash
+git add README.md pwastore/static/readme/shop_screenshot.png
+git commit -m "Add project README with live link and screenshot"
+git push
+
