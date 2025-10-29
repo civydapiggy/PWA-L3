@@ -6,7 +6,7 @@ The project showcases a simple product catalog, cart system, and static media in
 ---
 
 ## 🌐 Live Demo
-👉 **[Visit the live shop here](https://your-render-app-name.onrender.com)**  
+👉 **[Visit the live shop here](https://pwa-l3.onrender.com/)**  
 _(Hosted on Render)_
 
 ---
@@ -36,11 +36,7 @@ _(Hosted on Render)_
 
 ---
 
-## 📦 Run locally
-```bash
-python manage.py runserver
 
-(You can use another name — just update the Markdown link.)
 
 2. Commit and push both the README and screenshot:
 ```bash
