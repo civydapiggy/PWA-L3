@@ -13,7 +13,7 @@ _(Hosted on Render)_
 
 ## 🖼️ Screenshot
 
-![Shop Screenshot](static/readme/shop_screenshot.png)
+![Shop Screenshot](pwastore/static/readme/shop_screenshot.png)
 
 > The screenshot shows the homepage of the live demo, with product cards and working images.
 
@@ -36,11 +36,4 @@ _(Hosted on Render)_
 
 ---
 
-
-
-2. Commit and push both the README and screenshot:
-```bash
-git add README.md pwastore/static/readme/shop_screenshot.png
-git commit -m "Add project README with live link and screenshot"
-git push
 
